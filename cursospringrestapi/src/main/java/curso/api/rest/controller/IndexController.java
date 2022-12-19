@@ -71,6 +71,10 @@ public class IndexController {
 		
 		/*Outras rotinas antes de atualizar*/
 		
+		for (int pos = 0; pos < usuario.getTelefones().size(); pos ++) {
+			usuario.getTelefones().get(pos).setUsuario(usuario);
+		}
+		
 		Usuario usuarioSalvo = usuarioRepository.save(usuario);
 		
 		return new ResponseEntity<Usuario>(usuarioSalvo, HttpStatus.OK);
