@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<script
+  src="https://code.jquery.com/jquery-3.6.2.js"
+  integrity="sha256-pkn2CUZmheSeyssYw3vMp1+xyub4m+e+QK4sQskvuo4="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+
+	<script type="text/javascript">
+	
+		$(document).ready (
+				
+			function () {
+				
+				$.ajax({
+					url : "http://localhost:8080/usuario/",
+					method:"GET"
+				}).then (function (data, status, info) {
+					
+				});
+				
+			}
+		);
+	
+	</script>
+
+</body>
+</html>
