@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,6 +41,7 @@ public class IndexController {
 	
 	/*Serviço de RESTful*/
 	@GetMapping(value = "/{id}", produces = "application/json", headers = "X-API-Version=v1")
+	@Cacheable("cacheuser")
 	public ResponseEntity<Usuario> initV1(@PathVariable (value = "id") Long id) {
 		
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
@@ -56,10 +58,15 @@ public class IndexController {
 		return new ResponseEntity<Usuario>(usuario.get(), HttpStatus.OK);
 	}
 	
+	/*Vamos supor que o carregamento de usuarios seja um processo lento
+	 * e queremos controlar ele com cache para agilizar o processo*/
 	@GetMapping(value = "/", produces = "application/json")
-	public ResponseEntity<List<Usuario>> usuario() {
+	@Cacheable("cacheusuarios")
+	public ResponseEntity<List<Usuario>> usuario() throws InterruptedException {
 		
 		List<Usuario> lista = (List<Usuario>) usuarioRepository.findAll();
+		
+		Thread.sleep(6000);/*Segura o código por 6 segundos simulando um processo lento*/
 		
 		return new ResponseEntity<List<Usuario>>(lista, HttpStatus.OK);
 		
