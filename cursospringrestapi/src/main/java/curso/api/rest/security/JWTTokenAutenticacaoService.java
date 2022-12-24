@@ -47,6 +47,9 @@ public class JWTTokenAutenticacaoService {
 		/*Adiciona o cabeçalho http*/
 		response.addHeader(HEADER_STRING, token); /*Authentication: epofpfgpgfpgjpgb (Aparencia do Token)*/
 		
+		ApplicationContextLoad.getApplicationContext()
+		.getBean(UsuarioRepository.class).atualizaTokenUser(JWT, username);
+		
 		/*Liberando respostas para portas diferentes que usam a API ou caso clientes web*/
 		liberacaoCors(response);
 		
