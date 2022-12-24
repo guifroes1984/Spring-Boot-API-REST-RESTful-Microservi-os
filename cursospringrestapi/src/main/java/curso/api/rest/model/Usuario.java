@@ -52,6 +52,16 @@ public class Usuario implements UserDetails {
 	inverseJoinColumns = @JoinColumn (name = "role_id", referencedColumnName = "id", table = "role", unique = false, updatable = false, 
 			foreignKey = @ForeignKey (name = "role_fk", value = ConstraintMode.CONSTRAINT)))
 	private List<Role> roles; /*Os papeis de acessos*/
+	
+	private String token = "";
+	
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	public String getToken() {
+		return token;
+	}
 
 	public List<Telefone> getTelefones() {
 		return telefones;
